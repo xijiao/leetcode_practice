@@ -9,24 +9,16 @@ class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
         if (nums.empty()) return 0;
-
-        int l = 0;
-        int r = nums.size() - 1;
-        for (;;) {
-            if (r <= l) {
-                if (nums[l] >= target) return l;
-                else return l + 1;
-            }
-            
-            int m = (l + r) / 2;
-            if (nums[m] == target) return m;
-            else if (nums[m] > target) {
-                r = m;
+        int lo = 0, hi = nums.size();
+        for (; lo < hi; ) {
+            int k = lo + (hi - lo) / 2;
+            if (nums[k] >= target) {
+                hi = k;
             } else {
-                l = m + 1;
+                lo = k + 1;
             }
         }
-        return 0;
+        return lo;
     }
 };
 // @lc code=end
