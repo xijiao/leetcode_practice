@@ -29,6 +29,7 @@ public:
                 int nx = x + DIRS[i][0];
                 int ny = y + DIRS[i][1];
                 if (nx < 0 || ny < 0 || nx >= m || ny >= n) continue;
+                if (visited[nx][ny]) continue;
                 if (grid[x][y] == i + 1) {
                     q.emplace_front(nx, ny, cost);
                 } else {
