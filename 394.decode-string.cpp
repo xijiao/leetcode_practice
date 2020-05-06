@@ -13,7 +13,7 @@ public:
         stringstream si(s);
         stringstream cur;
         int num = 0;
-        bool lookingNumber = true;
+        bool lookingNumber = false;
         char v;
         while (si.get(v)) {
             //cout << "v=" << v << endl;
@@ -31,20 +31,14 @@ public:
             } else if (v == '[') {
                 lookingNumber = false;
             } else if (v == ']') {
-                stringstream ncur;
-                if (!S.empty()) {
-                    ncur.str(S.top());
-                    ncur.seekp(0, ios_base::end);
-                    S.pop();
-                }
+                stringstream ncur(S.top());
+                ncur.seekp(0, ios_base::end);
+                S.pop();
                 for (int i = 0; i < num; i++) {
                     ncur << cur.str();
                 }
-                num = 0;
-                if (!N.empty()) {
-                    num = N.top();
-                    N.pop();
-                }
+                num = N.top();
+                N.pop();
                 //cout << ncur.str() << endl;
                 cur.swap(ncur);
             } else {
