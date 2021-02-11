@@ -8,45 +8,45 @@
 class Solution {
 public:
     vector<int> findSubstring(string s, vector<string>& words) {
-        if (s.empty() || words.empty() || words[0].empty()) return {};
-        int n = s.size(), m = words.size(), w = words[0].size();
-        vector<bool> used(m, false);
         vector<int> res;
-        for (int i = 0; i <= n - m * w; i++) {
-            dfs(s, words, n, m, w, used, res, i);
+        unordered_map<string, int> map_words;
+        for (const string& word : words) {
+            map_words[word]++;
+        }
+        int wl = words[0].size();
+        int wc = words.size();
+        for (int i = 0; i < wl; i++) {
+            match(res, s, map_words, i, wc);
         }
         return res;
     }
 
-    bool dfs(const string& s, const vector<string>& words,
-            int n, int m, int w,
-            vector<bool>& used, vector<int>& res, int index) {
+    void match(vector<int>& res, const string& s, unordered_map<string, int> map_words, int start, int wordcount) {
+        unordered_map<string, int> l_map_words;
+        int wordlength = map_words.begin()->first.size();
+        int l_wordcount = 0;
+        int cur_index = start;
+        while (cur_index + (wordcount - l_wordcount) * wordlength <= s.size()) {
+            string cur = s.substr(cur_index, wordlength);
+            l_map_words[cur] ++;
+            l_wordcount++;
+            if (l_map_words[cur] > map_words[cur]) {
+                while (l_map_words[cur] > map_words[cur]) {
+                    string start_str = s.substr(start, wordlength);
+                    l_map_words[start_str]--;
+                    l_wordcount--;
+                    start += wordlength;
+                }
+            } else if (l_wordcount == wordcount) {
+                res.push_back(start);
 
-        bool has_left = false;
-        for (int i = 0; i < m; i ++) {
-            if (used[i]) continue;
-            has_left = true;
-            if (!compareStr(s, words[i], index)) continue;
-            used[i] = true;
-            if (dfs(s, words, n, m, w, used, res, index + w)) {
-                used[i] = false;
-                return true;
+                string start_str = s.substr(start, wordlength);
+                l_map_words[start_str]--;
+                l_wordcount--;
+                start += wordlength;
             }
-            used[i] = false;
+            cur_index += wordlength;
         }
-        if (!has_left) {
-            res.push_back(index - m * w);
-            return true;
-        }
-        return false;
-    }
-
-    bool compareStr(const string& s, const string& sub, int index) {
-        if (index + sub.size() > s.size()) return false;
-        for (int i = 0; i < sub.size(); i++) {
-            if (s[index + i] != sub[i]) return false;
-        }
-        return true;
     }
 };
 // @lc code=end
