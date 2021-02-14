@@ -20,24 +20,26 @@ class Solution {
 public:
     vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
         unordered_map<string, vector<TreeNode*>> cache;
-        findAndInsertCache(cache, root);
+        traverse(root, cache);
         vector<TreeNode*> res;
-        for (const auto& p : cache) {
-            if (p.second.size() > 1) res.push_back(p.second[0]);
+        for (const auto& c : cache) {
+            if (c.second.size() > 1) {
+                res.push_back(c.second[0]);
+            }
         }
         return res;
     }
 
-    string findAndInsertCache(unordered_map<string, vector<TreeNode*>>& cache, TreeNode* cur) {
-        if (!cur) return "N";
+    string traverse(TreeNode* root, unordered_map<string, vector<TreeNode*>>& cache) {
         stringstream ss;
-        ss << "(";
-        ss << findAndInsertCache(cache, cur->left);
-        ss << to_string(cur->val);
-        ss << findAndInsertCache(cache, cur->right);
-        ss << ")";
-        cache[ss.str()].push_back(cur);
-        return ss.str();
+        ss << root->val << ",";
+        if (root->left) ss << traverse(root->left, cache);
+        else ss << '#';
+        if (root->right) ss << traverse(root->right, cache);
+        else ss << '#';
+        string res = ss.str();
+        cache[res].push_back(root);
+        return res;
     }
 };
 // @lc code=end
