@@ -17,8 +17,8 @@ public:
         for (int i = 2; i <= d; i++) {
             dp.swap(dppre);
             fill(dp.begin(), dp.end(), 0);
-            for (int j = 1; j <= target; j++) {
-                if (dppre[j] == 0) continue;
+            for (int j = i - 1; j <= target; j++) {
+                if (dppre[j] == 0) break;
                 for (int k = 1; k <= f; k++) {
                     if (j + k > target) break;
                     dp[j + k] = (dp[j + k] + dppre[j]) % MOD;
