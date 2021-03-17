@@ -8,14 +8,14 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        int f1 = 1;
-        int f2 = 1;
-        for (int i = 1; i < n; i++) {
-            int cur = f1 + f2;
-            f1 = f2;
-            f2 = cur;
+        if (n <= 2) return n;
+        int t1 = 1, t2 = 2;
+        for (int i = 3; i <= n; i++) {
+            int t3 = t1 + t2;
+            t1 = t2;
+            t2 = t3;
         }
-        return f2;
+        return t2;
     }
 };
 // @lc code=end
