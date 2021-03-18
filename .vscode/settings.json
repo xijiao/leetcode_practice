@@ -6,6 +6,8 @@
         "xiosbase": "cpp",
         "utility": "cpp",
         "ios": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "xstring": "cpp",
+        "ostream": "cpp"
     }
 }
