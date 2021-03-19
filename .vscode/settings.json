@@ -8,6 +8,8 @@
         "ios": "cpp",
         "limits": "cpp",
         "xstring": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "xstddef": "cpp",
+        "type_traits": "cpp"
     }
 }
