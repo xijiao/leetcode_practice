@@ -8,15 +8,21 @@
 class Solution {
 public:
     int oddCells(int n, int m, vector<vector<int>>& indices) {
-        unordered_set<int> rows, cols;
-        for (const auto& idx : indices) {
-            if (rows.find(idx[0]) == rows.end()) rows.insert(idx[0]);
-            else rows.erase(idx[0]);
-            if (cols.find(idx[1]) == cols.end()) cols.insert(idx[1]);
-            else cols.erase(idx[1]);
+        unordered_set<int> oddrows, oddcols;
+        for (const auto& i : indices) {
+            int row = i[0], col = i[1];
+            if (oddrows.count(row)) {
+                oddrows.erase(row);
+            } else {
+                oddrows.insert(row);
+            }
+            if (oddcols.count(col)) {
+                oddcols.erase(col);
+            } else {
+                oddcols.insert(col);
+            }
         }
-
-        return rows.size() * m + cols.size() * n - rows.size() * cols.size() * 2;
+        return oddrows.size() * m + oddcols.size() * n - oddrows.size() * oddcols.size() * 2;
     }
 };
 // @lc code=end
