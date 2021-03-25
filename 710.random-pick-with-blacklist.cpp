@@ -6,36 +6,24 @@
 
 // @lc code=start
 class Solution {
-    unordered_map<int, int> m;
-    int M;
+    unordered_map<int, int> _offset;
+    int _MOD;
 public:
     Solution(int N, vector<int>& blacklist) {
-        M = N - blacklist.size();
-        unordered_set<int> u;
-        for (int i : blacklist) {
-            if (i >= M) u.insert(i);
+        _MOD = N - blacklist.size();
+        unordered_set<int> B(blacklist.begin(), blacklist.end());
+        int v = N - 1;
+        for (int b : blacklist) {
+            if (b >= _MOD) continue;
+            while (B.count(v)) v--;
+            _offset[b] = v--;
         }
-
-        for (int p = M, i = 0; p < N && i < blacklist.size();) {
-            if (u.count(p)) {
-                p++;
-                continue;
-            }
-            else if (u.count(blacklist[i])) {
-                i++;
-                continue;
-            }
-            m[blacklist[i]] = p;
-            p++;
-            i++;
-        }
-        srand(time(nullptr));
     }
     
     int pick() {
-        int v = rand() % M;
-        if (m.count(v)) return m[v];
-        else return v;
+        int r = rand() % _MOD;
+        if (_offset.count(r)) return _offset[r];
+        return r;
     }
 };
 
