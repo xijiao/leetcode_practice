@@ -10,11 +10,15 @@ public:
     int findNumbers(vector<int>& nums) {
         int res = 0;
         for (int n : nums) {
-            int count = 0;
-            for (; n; n /= 10, count++);
-            if (count % 2 == 0) res++;
+            if (hasEvenDigits(n)) res++;
         }
         return res;
+    }
+
+    bool hasEvenDigits(int n) {
+        int digits = 0;
+        for (; n; n /= 10) digits++;
+        return digits % 2 == 0;
     }
 };
 // @lc code=end
