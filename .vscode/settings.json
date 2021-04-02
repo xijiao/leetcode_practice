@@ -12,6 +12,7 @@
         "xstddef": "cpp",
         "type_traits": "cpp",
         "string": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "initializer_list": "cpp"
     }
 }
