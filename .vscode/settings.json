@@ -18,6 +18,10 @@
         "chrono": "cpp",
         "complex": "cpp",
         "iterator": "cpp",
-        "__split_buffer": "cpp"
+        "__split_buffer": "cpp",
+        "__hash_table": "cpp",
+        "array": "cpp",
+        "string_view": "cpp",
+        "unordered_map": "cpp"
     }
 }
